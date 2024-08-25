@@ -5,4 +5,4 @@
 
 - **[Angle_resolution_algorithm_2NVs_on_each_ND.ipynb](Angle_resolution_algorithm_2NVs_on_each_ND.ipynb)** demonstrates resolving the **relative** angle between two nanodiamonds, each having two NV centers. The relative angle can be uniquely determined.
 
-- **[1_1_NV_angle_spectrum_calculation.ipynb](1_1_NV_angle_spectrum_calculation.ipynb)** demonstrates calculation of the angle spectrum bewteen two NV centers. The angle spectrum refers to a distribution of possible relative angles bewteen two NVs. 
+- **[Angle_resolution_algorithm_1NVs_on_each_ND.ipynb](Angle_resolution_algorithm_1NVs_on_each_ND.ipynb)** and **[1_1_NV_angle_spectrum_calculation.ipynb](1_1_NV_angle_spectrum_calculation.ipynb)** demonstrates estimating the **relative** angle between two nanodiamonds, each having one NV center. The angle can not be uniquely resolved with only one NV center, so the algorithm involves calculating and updating a distribution of possible relative angles bewteen two NVs. With more measurments, the distribution mean approaches the true relative angle, and the distribution variance decreases.
