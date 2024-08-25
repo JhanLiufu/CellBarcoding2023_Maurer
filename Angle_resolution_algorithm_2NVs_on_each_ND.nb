@@ -1,0 +1,2627 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    110673,       2619]
+NotebookOptionsPosition[    107322,       2557]
+NotebookOutlinePosition[    107788,       2575]
+CellTagsIndexPosition[    107745,       2572]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[StyleBox["System of equation with one rotation",
+ FontSize->24,
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]]], "Text",
+ CellChangeTimes->{{3.916713096332222*^9, 
+  3.916713106771411*^9}},ExpressionUUID->"53caf5f9-00f2-4589-8bb0-\
+e7624539b7c4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Rotation", " ", "matrices", " ", "RzRyRz", " ", "for", " ", "B", " ", 
+    "and", " ", 
+    RowBox[{"B", "'"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"R", "[", 
+      RowBox[{"\[Alpha]_", ",", "\[Beta]_", ",", "\[Gamma]_"}], "]"}], " ", 
+     "=", " ", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Cos", "[", "\[Alpha]", "]"}], ",", " ", 
+          RowBox[{"-", 
+           RowBox[{"Sin", "[", "\[Alpha]", "]"}]}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Sin", "[", "\[Alpha]", "]"}], ",", 
+          RowBox[{"Cos", "[", "\[Alpha]", "]"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "1"}], "}"}]}], "}"}], ".", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Cos", "[", "\[Beta]", "]"}], ",", "0", ",", 
+          RowBox[{"Sin", "[", "\[Beta]", "]"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1", ",", " ", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"Sin", "[", "\[Beta]", "]"}]}], ",", "0", ",", 
+          RowBox[{"Cos", "[", "\[Beta]", "]"}]}], "}"}]}], "}"}], " ", ".", 
+      " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Cos", "[", "\[Gamma]", "]"}], ",", " ", 
+          RowBox[{"-", 
+           RowBox[{"Sin", "[", "\[Gamma]", "]"}]}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Sin", "[", "\[Gamma]", "]"}], ",", 
+          RowBox[{"Cos", "[", "\[Gamma]", "]"}], ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "1"}], "}"}]}], "}"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Refrence", " ", "NV", " ", "and", " ", "magnetic", " ", "field", " ", 
+     "vector", " ", "defined", " ", "at", " ", "001"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"B", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NVinit", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "1"}], "}"}]}], ";"}], " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NV11", "=", "NVinit"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "NV21", " ", "should", " ", "be", " ", "109.5", " ", "degrees", " ", 
+     "away", " ", "from", " ", "NV11"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NV21", "=", 
+     RowBox[{
+      RowBox[{"R", "[", 
+       RowBox[{"0", ",", 
+        RowBox[{
+         RowBox[{"1095", "/", "10"}], "*", "Degree"}], ",", "0"}], "]"}], ".",
+       "NV11"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NV11", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"R", "[", 
+       RowBox[{"0", ",", 
+        RowBox[{"Pi", "/", "6"}], ",", "0"}], "]"}], ".", "NV11"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"NV21", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"R", "[", 
+       RowBox[{"0", ",", 
+        RowBox[{"Pi", "/", "6"}], ",", "0"}], "]"}], ".", "NV21"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Green", ",", " ", 
+       RowBox[{"Arrow", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "B"}], "}"}], "]"}],
+        ",", "Red", ",", 
+       RowBox[{"Arrow", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV11"}], "}"}], 
+        "]"}], ",", "Red", ",", 
+       RowBox[{"Arrow", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV21"}], "}"}], 
+        "]"}]}], "}"}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<Original True NV orientations\>\""}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9167131297072563`*^9, 3.916713257615012*^9}, {
+  3.917312883967657*^9, 3.917312884282153*^9}, {3.9173149205341654`*^9, 
+  3.9173149356234217`*^9}, {3.9173149683773685`*^9, 3.9173150403365383`*^9}, {
+  3.9173152561663218`*^9, 3.917315322216871*^9}, {3.9173156402110395`*^9, 
+  3.917315667664833*^9}, {3.917316049880649*^9, 3.917316055069816*^9}, {
+  3.917356780439854*^9, 3.917356780598605*^9}, {3.9173568438846426`*^9, 
+  3.9173568571087246`*^9}, {3.917357027737137*^9, 3.91735702795601*^9}, {
+  3.917357222325528*^9, 3.917357244868034*^9}, {3.917357278020091*^9, 
+  3.917357365358896*^9}, {3.917358010405218*^9, 3.9173580105149503`*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"4c94e279-124a-487c-a5d8-4a1b4a11694d"],
+
+Cell[BoxData[
+ Graphics3DBox[{
+   {RGBColor[0, 1, 0], Arrow3DBox[{{0, 0, 0}, {0, 0, 1}}]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0.5, 0, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+        Rational[-1, 2] Sin[Rational[39, 2] Degree], 0, 
+        Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+        Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]}}, {{0, 
+       0, 0}, {0.6494480483301837, 0, -0.7604059656000309}}]]}},
+  PlotLabel->FormBox[
+   "\"Original True NV orientations\"", TraditionalForm]]], "Output",
+ CellChangeTimes->{
+  3.9173572454194183`*^9, {3.9173572796402493`*^9, 3.9173573357230806`*^9}, 
+   3.917357367008456*^9, 3.917358011191798*^9, 3.917609115050866*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"c13fcc01-da3e-480f-a454-c2203b7f0f08"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Rotate the two vectors together to get the two NV2 \
+vectors",
+ FontSize->24,
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]]], "Text",
+ CellChangeTimes->{{3.916713589212476*^9, 3.916713606503961*^9}, {
+  3.9170101235702286`*^9, 
+  3.917010144132128*^9}},ExpressionUUID->"1e6b1d00-7d4a-41ae-b557-\
+ed7d19e44875"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"NV12", "=", 
+   RowBox[{
+    RowBox[{"R", "[", 
+     RowBox[{"0", ",", 
+      RowBox[{"Pi", "/", "3"}], ",", "0"}], "]"}], ".", "NV11"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NV22", "=", 
+    RowBox[{
+     RowBox[{"R", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{"Pi", "/", "3"}], ",", "0"}], "]"}], ".", "NV21"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"StringForm", "[", 
+     RowBox[{"\"\<The minor angle between NV1 and NV2 is `` degrees\>\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV11", ",", "NV21"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{"\"\<The minor angle between NV3 and NV4 is `` degrees\>\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV12", ",", "NV22"}], "]"}], "/", "Degree"}]}], "]"}], "\n", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{"\"\<The minor angle between NV1 and NV3 is `` degrees\>\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV11", ",", "NV12"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{"\"\<The minor angle between NV1 and NV4 is `` degrees\>\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV11", ",", "NV22"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{"\"\<The minor angle between NV2 and NV3 is `` degrees\>\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV21", ",", "NV12"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{"\"\<The minor angle between NV2 and NV4 is `` degrees\>\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV21", ",", "NV22"}], "]"}], "/", "Degree"}]}], "]"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics3D", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Green", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "B"}], "}"}], "]"}], 
+     ",", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV11"}], "}"}], 
+      "]"}], ",", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV21"}], "}"}], 
+      "]"}], ",", "Purple", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV12"}], "}"}], 
+      "]"}], ",", "Purple", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV22"}], "}"}], 
+      "]"}]}], "}"}], ",", 
+   RowBox[{"PlotLabel", "->", "\"\<Original True NV orientations\>\""}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.9167136452041206`*^9, 3.916713675217225*^9}, {
+  3.917010113773517*^9, 3.917010114413336*^9}, {3.9170102424298162`*^9, 
+  3.9170102494402013`*^9}, {3.91701037533606*^9, 3.9170103790649004`*^9}, {
+  3.917356943924259*^9, 3.917356968445983*^9}, {3.9173570010392027`*^9, 
+  3.917357001573786*^9}, {3.9173573752752485`*^9, 3.9173573756817503`*^9}, {
+  3.91735746923339*^9, 3.91735747329993*^9}, {3.9173575521387167`*^9, 
+  3.917357579719839*^9}, {3.917357638148589*^9, 3.917357669839039*^9}, {
+  3.9173578041594777`*^9, 3.917357813094699*^9}, {3.9173579729142036`*^9, 
+  3.917358091476274*^9}, {3.917358730428073*^9, 3.9173587645439434`*^9}, {
+  3.9176151911631503`*^9, 3.917615192987279*^9}},
+ CellLabel->
+  "In[196]:=",ExpressionUUID->"6adba582-21a2-4ff9-97d6-8fd823a2aee1"],
+
+Cell[BoxData[
+ Graphics3DBox[{
+   {RGBColor[0, 1, 0], Arrow3DBox[{{0, 0, 0}, {0, 0, 1}}]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0.5, 0, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+        Rational[-1, 2] Sin[Rational[39, 2] Degree], 0, 
+        Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+        Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]}}, {{0, 
+       0, 0}, {0.6494480483301837, 0, -0.7604059656000309}}]]}, 
+   {RGBColor[0.5, 0, 0.5], Arrow3DBox[{{0, 0, 0}, {1, 0, 0}}]}, 
+   {RGBColor[0.5, 0, 0.5], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2] (
+          Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+        Rational[1, 2] 
+         3^Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]), 0, 
+        Rational[-1, 2] 
+         3^Rational[1, 2] (
+          Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+        Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree])}}, {{
+       0, 0, 0}, {-0.33380685923377085`, 0, -0.9426414910921783}}]]}},
+  PlotLabel->FormBox[
+   "\"Original True NV orientations\"", TraditionalForm]]], "Output",
+ CellChangeTimes->{
+  3.9170102506623716`*^9, 3.917010379631706*^9, 3.91731289320611*^9, 
+   3.9173149399530754`*^9, {3.9173149766806135`*^9, 3.917315002436166*^9}, 
+   3.9173569700602765`*^9, 3.9173570027961807`*^9, 3.9173573764359355`*^9, 
+   3.9173574800568857`*^9, 3.9173575549784603`*^9, 3.9173576719391847`*^9, 
+   3.9173578143040276`*^9, {3.917357974775222*^9, 3.9173580028032646`*^9}, {
+   3.9173580336777563`*^9, 3.917358092685082*^9}, 3.917358765586839*^9, 
+   3.917609120075108*^9, 3.9176151939775286`*^9},
+ CellLabel->
+  "Out[198]=",ExpressionUUID->"8a437b11-d568-4fb0-bf16-f9b32379b307"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Rotate the four vectors together to get vectors after \
+one rotation",
+ FontSize->24,
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]]], "Text",
+ CellChangeTimes->{{3.9170101642116594`*^9, 
+  3.917010177976447*^9}},ExpressionUUID->"d31a99ec-b840-49ec-9c2e-\
+9b809c18695b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"xrot", "=", 
+   RowBox[{"7", "*", 
+    RowBox[{"Pi", "/", "4"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"yrot", "=", 
+   RowBox[{"5", "*", 
+    RowBox[{"Pi", "/", "7"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zrot", "=", 
+   RowBox[{"13", "*", 
+    RowBox[{"Pi", "/", "8"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NV11rot", "=", 
+   RowBox[{
+    RowBox[{"R", "[", 
+     RowBox[{"xrot", ",", "yrot", ",", "zrot"}], "]"}], ".", "NV11"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NV21rot", "=", 
+   RowBox[{
+    RowBox[{"R", "[", 
+     RowBox[{"xrot", ",", "yrot", ",", "zrot"}], "]"}], ".", "NV21"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NV12rot", "=", 
+   RowBox[{
+    RowBox[{"R", "[", 
+     RowBox[{"xrot", ",", "yrot", ",", "zrot"}], "]"}], ".", "NV12"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NV22rot", "=", 
+    RowBox[{
+     RowBox[{"R", "[", 
+      RowBox[{"xrot", ",", "yrot", ",", "zrot"}], "]"}], ".", "NV22"}]}], 
+   ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"StringForm", "[", 
+     RowBox[{
+     "\"\<After rotation, The minor angle between NV1 and NV2 is `` degrees\>\
+\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV11rot", ",", "NV21rot"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{
+     "\"\<After rotation, The minor angle between NV3 and NV4 is `` degrees\>\
+\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV12rot", ",", "NV22rot"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\n", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{
+     "\"\<After rotation, The minor angle between NV1 and NV3 is `` degrees\>\
+\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV11rot", ",", "NV12rot"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{
+     "\"\<After rotation, The minor angle between NV1 and NV4 is `` degrees\>\
+\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV11rot", ",", "NV22rot"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{
+     "\"\<After rotation, The minor angle between NV2 and NV3 is `` degrees\>\
+\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV21rot", ",", "NV12rot"}], "]"}], "/", "Degree"}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"StringForm", "[", 
+     RowBox[{
+     "\"\<After rotation, The minor angle between NV2 and NV4 is `` degrees\>\
+\"", ",", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"NV21rot", ",", "NV22rot"}], "]"}], "/", "Degree"}]}], 
+     "]"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics3D", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Green", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "B"}], "}"}], "]"}], 
+     ",", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV11rot"}], "}"}], 
+      "]"}], ",", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV21rot"}], "}"}], 
+      "]"}], ",", "Purple", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV12rot"}], "}"}], 
+      "]"}], ",", "Purple", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV22rot"}], "}"}], 
+      "]"}], ",", 
+     RowBox[{"Directive", "[", "Dashed", "]"}], ",", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV11"}], "}"}], 
+      "]"}], ",", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV21"}], "}"}], 
+      "]"}], ",", "Purple", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV12"}], "}"}], 
+      "]"}], ",", "Purple", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "NV22"}], "}"}], 
+      "]"}]}], "}"}], ",", 
+   RowBox[{"PlotLabel", "->", "\"\<True NV orientations after 1 rot\>\""}]}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.917010219982072*^9, 3.9170102329163575`*^9}, {
+  3.9170102640445795`*^9, 3.9170103695542035`*^9}, {3.917357690714301*^9, 
+  3.9173578470752964`*^9}, {3.9173581414096575`*^9, 3.91735818483716*^9}, {
+  3.9173586694780884`*^9, 3.917358714349103*^9}, {3.9176151802446456`*^9, 
+  3.9176151821908655`*^9}, {3.917615306988696*^9, 3.9176153271125965`*^9}, {
+  3.9176153905169477`*^9, 3.9176154910660415`*^9}},
+ CellLabel->
+  "In[255]:=",ExpressionUUID->"479716af-805f-41fb-b739-a34c2cfecbad"],
+
+Cell[BoxData[
+ Graphics3DBox[{
+   {RGBColor[0, 1, 0], Arrow3DBox[{{0, 0, 0}, {0, 0, 1}}]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2] Cos[Rational[3, 14] Pi] + 
+        Rational[1, 2] (-2^Rational[-1, 2] Cos[Rational[1, 8] Pi] - 
+          2^Rational[-1, 2] Sin[Rational[1, 8] Pi] Sin[Rational[3, 14] Pi]), 
+        Rational[-1, 2] Rational[3, 2]^Rational[1, 2] Cos[Rational[3, 14] Pi] + 
+        Rational[1, 2] (-2^Rational[-1, 2] Cos[Rational[1, 8] Pi] + 
+          2^Rational[-1, 2] Sin[Rational[1, 8] Pi] Sin[Rational[3, 14] Pi]), 
+        Rational[-1, 2] Cos[Rational[3, 14] Pi] Sin[Rational[1, 8] Pi] + 
+        Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[3, 14] Pi]}}, {{0, 0, 
+       0}, {0.06777374569178923, -0.7210552281299775, \
+-0.6895549850311653}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       2^Rational[-1, 2] 
+         Cos[Rational[3, 14] Pi] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]) + (
+          Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] Sin[Rational[39, 2] Degree]) (-2^Rational[-1, 2] 
+           Cos[Rational[1, 8] Pi] - 2^Rational[-1, 2] Sin[Rational[1, 8] Pi] 
+          Sin[Rational[3, 14] Pi]), -2^Rational[-1, 2] 
+         Cos[Rational[3, 14] Pi] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]) + (
+          Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] Sin[Rational[39, 2] Degree]) (-2^Rational[-1, 2] 
+           Cos[Rational[1, 8] Pi] + 
+          2^Rational[-1, 2] Sin[Rational[1, 8] Pi] Sin[Rational[3, 14] Pi]), -
+         Cos[Rational[3, 14] Pi] (
+          Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+          Rational[-1, 2] Sin[Rational[39, 2] Degree]) 
+         Sin[Rational[1, 8] Pi] - (
+         Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+         Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]) 
+        Sin[Rational[3, 14] Pi]}}, {{0, 0, 0}, {-0.9542256662185291, 
+       0.10568089865906816`, 0.27979443452008806`}}]]}, 
+   {RGBColor[0.5, 0, 0.5], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {-2^Rational[-1, 2] Cos[Rational[1, 8] Pi] - 2^Rational[-1, 2] 
+        Sin[Rational[1, 8] Pi] 
+        Sin[Rational[3, 14] Pi], -2^Rational[-1, 2] Cos[Rational[1, 8] Pi] + 
+        2^Rational[-1, 2] Sin[Rational[1, 8] Pi] Sin[Rational[3, 14] Pi], -
+        Cos[Rational[3, 14] Pi] Sin[Rational[1, 8] Pi]}}, {{0, 0, 
+       0}, {-0.821996607061624, -0.4845663578147524, \
+-0.29919395524195214`}}]]}, 
+   {RGBColor[0.5, 0, 0.5], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       2^Rational[-1, 2] 
+         Cos[Rational[3, 14] Pi] (
+          Rational[-1, 2] 
+           3^Rational[1, 2] (
+            Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+          Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree])) + (
+          Rational[1, 2] (
+            Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+          Rational[1, 2] 
+           3^Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] 3^Rational[1, 2] 
+             Sin[Rational[39, 2] Degree])) (-2^Rational[-1, 2] 
+           Cos[Rational[1, 8] Pi] - 2^Rational[-1, 2] Sin[Rational[1, 8] Pi] 
+          Sin[Rational[3, 14] Pi]), -2^Rational[-1, 2] 
+         Cos[Rational[3, 14] Pi] (
+          Rational[-1, 2] 
+           3^Rational[1, 2] (
+            Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+          Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree])) + (
+          Rational[1, 2] (
+            Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+          Rational[1, 2] 
+           3^Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] 3^Rational[1, 2] 
+             Sin[Rational[39, 2] Degree])) (-2^Rational[-1, 2] 
+           Cos[Rational[1, 8] Pi] + 
+          2^Rational[-1, 2] Sin[Rational[1, 8] Pi] Sin[Rational[3, 14] Pi]), -
+         Cos[Rational[3, 14] Pi] (
+          Rational[1, 2] (
+            Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+          Rational[1, 2] 
+           3^Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree])) 
+         Sin[Rational[1, 8] Pi] - (
+         Rational[-1, 2] 
+          3^Rational[1, 2] (
+           Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+           Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+         Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+           Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree])) 
+        Sin[Rational[3, 14] Pi]}}, {{0, 0, 0}, {-0.24674025427276647`, 
+       0.6828799339693132, 0.6876003510059289}}]]}, 
+   {RGBColor[1, 0, 0], Dashing[{Small, Small}], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0.5, 0, 0.8660254037844386}}]], 
+    {RGBColor[1, 0, 0], 
+     Arrow3DBox[
+      NCache[{{0, 0, 0}, {
+        Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+         Rational[-1, 2] Sin[Rational[39, 2] Degree], 0, 
+         Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+         Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]}}, {{0, 
+        0, 0}, {0.6494480483301837, 0, -0.7604059656000309}}]]}, 
+    {RGBColor[0.5, 0, 0.5], Arrow3DBox[{{0, 0, 0}, {1, 0, 0}}]}, 
+    {RGBColor[0.5, 0, 0.5], 
+     Arrow3DBox[
+      NCache[{{0, 0, 0}, {
+        Rational[1, 2] (
+           Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+           Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+         Rational[1, 2] 
+          3^Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+           Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree]), 0, 
+         Rational[-1, 2] 
+          3^Rational[1, 2] (
+           Rational[1, 2] 3^Rational[1, 2] Cos[Rational[39, 2] Degree] + 
+           Rational[-1, 2] Sin[Rational[39, 2] Degree]) + 
+         Rational[1, 2] (Rational[-1, 2] Cos[Rational[39, 2] Degree] + 
+           Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[39, 2] Degree])}}, {{
+        0, 0, 0}, {-0.33380685923377085`, 0, -0.9426414910921783}}]]}}},
+  PlotLabel->FormBox[
+   "\"True NV orientations after 1 rot\"", TraditionalForm]]], "Output",
+ CellChangeTimes->{{3.917010354417513*^9, 3.9170103703712373`*^9}, 
+   3.917312897415845*^9, 3.917357678780056*^9, {3.917357745581828*^9, 
+   3.9173577831102314`*^9}, 3.917357847863847*^9, 3.917358188508462*^9, {
+   3.9173586729572945`*^9, 3.9173587153318224`*^9}, 3.917609135628297*^9, 
+   3.9176151839168296`*^9, {3.917615309393359*^9, 3.9176153280558443`*^9}, 
+   3.9176154226281013`*^9, {3.9176154534403524`*^9, 3.917615491987501*^9}},
+ CellLabel->
+  "Out[262]=",ExpressionUUID->"0281a0ea-ed4c-4170-9e24-cfac26b319fa"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Calculate projections and circles (set of possible \
+orientations)",
+ FontSize->24,
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]]], "Text",
+ CellChangeTimes->{{3.9167138236892424`*^9, 3.9167138310965223`*^9}, {
+  3.9167146014816813`*^9, 3.9167146038524933`*^9}, {3.9170093776003504`*^9, 
+  3.9170093863200626`*^9}},ExpressionUUID->"b3cac2fe-9f84-497b-a3e4-\
+10cffd5f421d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Minor", " ", "Angle"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"minorAngleBetween", "[", 
+     RowBox[{"a_", ",", "b_"}], "]"}], ":=", 
+    RowBox[{"N", "[", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"a", ".", "b"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "a", "]"}], 
+         RowBox[{"Norm", "[", "b", "]"}]}], ")"}]}], "]"}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"theta11", "=", 
+    RowBox[{"ArcCos", "[", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"NV11", ".", "B"}], ")"}], "/", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Norm", "[", "NV11", "]"}], " ", 
+        RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta21", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV21", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV21", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta12", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV12", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV12", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta22", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV22", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV22", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta11rot", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV11rot", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV11rot", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta21rot", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV21rot", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV21rot", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta12rot", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV12rot", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV12rot", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"theta22rot", "=", 
+     RowBox[{"ArcCos", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"NV22rot", ".", "B"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Norm", "[", "NV22rot", "]"}], " ", 
+         RowBox[{"Norm", "[", "B", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Circle", " ", "radius"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"radius11", "=", 
+    RowBox[{
+     RowBox[{"Norm", "[", "NV11", "]"}], " ", 
+     RowBox[{"Sin", "[", "theta11", "]"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius21", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV21", "]"}], " ", 
+      RowBox[{"Sin", "[", "theta21", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius12", "=", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"Norm", "[", "NV12", "]"}], " ", 
+       RowBox[{"Sin", "[", "theta12", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius22", "=", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"Norm", "[", "NV22", "]"}], " ", 
+       RowBox[{"Sin", "[", "theta22", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius11rot", "=", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"Norm", "[", "NV11rot", "]"}], " ", 
+       RowBox[{"Sin", "[", "theta11rot", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius21rot", "=", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"Norm", "[", "NV21rot", "]"}], " ", 
+       RowBox[{"Sin", "[", "theta21rot", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius12rot", "=", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"Norm", "[", "NV12rot", "]"}], " ", 
+       RowBox[{"Sin", "[", "theta12rot", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"radius22rot", "=", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"Norm", "[", "NV22rot", "]"}], " ", 
+       RowBox[{"Sin", "[", "theta22rot", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Circle", " ", "height"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"height11", "=", 
+    RowBox[{
+     RowBox[{"Norm", "[", "NV11", "]"}], " ", 
+     RowBox[{"Cos", "[", "theta11", "]"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height21", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV21", "]"}], 
+      RowBox[{"Cos", "[", "theta21", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height12", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV12", "]"}], " ", 
+      RowBox[{"Cos", "[", "theta12", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height22", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV22", "]"}], 
+      RowBox[{"Cos", "[", "theta22", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height11rot", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV11rot", "]"}], " ", 
+      RowBox[{"Cos", "[", "theta11rot", "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height21rot", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV21rot", "]"}], 
+      RowBox[{"Cos", "[", "theta21rot", "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height12rot", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV12rot", "]"}], " ", 
+      RowBox[{"Cos", "[", "theta12rot", "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height22rot", "=", 
+     RowBox[{
+      RowBox[{"Norm", "[", "NV22rot", "]"}], 
+      RowBox[{"Cos", "[", "theta22rot", "]"}]}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.916714116537138*^9, 3.916714171893345*^9}, {
+  3.9167142934720373`*^9, 3.9167144459284315`*^9}, {3.916714481684976*^9, 
+  3.916714484248895*^9}, {3.9170080473356953`*^9, 3.9170080506951103`*^9}, {
+  3.9170082750732136`*^9, 3.917008292576892*^9}, {3.91701039503471*^9, 
+  3.9170104535928717`*^9}, {3.917011244738924*^9, 3.9170114999977107`*^9}, {
+  3.9170115333182497`*^9, 3.917011535257415*^9}, {3.917011571078974*^9, 
+  3.917011615628851*^9}, {3.917015862907732*^9, 3.917015865974414*^9}, {
+  3.91701838023811*^9, 3.9170183951446123`*^9}, {3.9170185765301476`*^9, 
+  3.917018579112447*^9}, {3.917312863383442*^9, 3.9173128647774043`*^9}, {
+  3.9173129037678175`*^9, 3.91731290392483*^9}, {3.917356388046896*^9, 
+  3.9173564921029716`*^9}, {3.917356555508934*^9, 3.9173565815399885`*^9}, {
+  3.9176091557539654`*^9, 3.917609159956213*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"41fddc14-9a81-4b40-bd9c-49cd67eab2c1"],
+
+Cell[BoxData[
+ FractionBox["\[Pi]", "6"]], "Output",
+ CellChangeTimes->{3.917609160599681*^9},
+ CellLabel->"Out[34]=",ExpressionUUID->"8e7150ad-62aa-4f85-a352-138a284b2f60"],
+
+Cell[BoxData[
+ FractionBox["1", "2"]], "Output",
+ CellChangeTimes->{3.917609160631608*^9},
+ CellLabel->"Out[42]=",ExpressionUUID->"d03b1e5c-8139-4464-b9cd-b94e1805a17b"],
+
+Cell[BoxData[
+ FractionBox[
+  SqrtBox["3"], "2"]], "Output",
+ CellChangeTimes->{3.917609160631608*^9},
+ CellLabel->"Out[50]=",ExpressionUUID->"6b8edc8a-9526-473a-994f-3cde748124ae"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Generate possible NV vectors with only projection \
+angle",
+ FontSize->24,
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]]], "Text",
+ CellChangeTimes->{{3.9173582452151566`*^9, 
+  3.91735827363805*^9}},ExpressionUUID->"f79c2aea-d355-4e2b-b294-\
+8b5043ac566c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"generateVector", "[", 
+    RowBox[{"x_", ",", "y_", ",", "z_", ",", "radius_", ",", "phi_"}], "]"}], 
+   ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"x", "+", 
+      RowBox[{"radius", "*", " ", 
+       RowBox[{"Cos", "[", "phi", "]"}]}]}], ",", 
+     RowBox[{"y", "+", 
+      RowBox[{"radius", " ", "*", 
+       RowBox[{"Sin", "[", "phi", "]"}]}]}], ",", "z"}], "}"}]}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"for", " ", "example"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"generateVector", "[", 
+  RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", "0"}], 
+  "]"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.9170083446228223`*^9, 3.917008356631932*^9}, {
+  3.9170092139827943`*^9, 3.9170093470079174`*^9}, {3.917010506120844*^9, 
+  3.9170105577444754`*^9}, {3.917011080095687*^9, 3.9170111444649286`*^9}, {
+  3.9170117603803825`*^9, 3.917011773188142*^9}, {3.9173129390161505`*^9, 
+  3.9173129391732903`*^9}, {3.9173133558497458`*^9, 3.917313356492019*^9}, {
+  3.917313673941659*^9, 3.9173136852269435`*^9}, {3.917313763212868*^9, 
+  3.917313764917183*^9}, {3.917313800926484*^9, 3.917313803604058*^9}, {
+  3.9173140945460415`*^9, 3.9173141080276756`*^9}, {3.917355864083354*^9, 
+  3.9173558647104235`*^9}, {3.9176093834228497`*^9, 
+  3.9176094028854413`*^9}},ExpressionUUID->"5700235c-7429-434e-b964-\
+a192adcc9913"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   FractionBox["1", "2"], ",", "0", ",", 
+   FractionBox[
+    SqrtBox["3"], "2"]}], "}"}]], "Output",
+ CellChangeTimes->{3.917609392150339*^9},
+ CellLabel->"Out[69]=",ExpressionUUID->"de160a5c-0402-4427-8cbd-b2094cdac569"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Graphics3D", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"B", " ", "field"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"Green", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "B"}], "}"}], "]"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"Some", " ", "possible", " ", "NV11", " ", "vectors"}], " ", 
+      "*)"}], "\[IndentingNewLine]", "Red", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", "0"}], 
+         "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", 
+          RowBox[{"Pi", "/", "4"}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Red", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", 
+          RowBox[{"Pi", "/", "2"}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Red", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", 
+          RowBox[{"3", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Red", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", "Pi"}],
+          "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "Red", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", 
+          RowBox[{"5", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Red", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", 
+          RowBox[{"6", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Red", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height11", ",", "radius11", ",", 
+          RowBox[{"7", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"Some", " ", "possible", " ", "NV21", " ", "vectors"}], "*)"}], 
+     "\[IndentingNewLine]", "Blue", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", "0"}], 
+         "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "Blue", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", 
+          RowBox[{"Pi", "/", "4"}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Blue", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", 
+          RowBox[{"Pi", "/", "2"}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Blue", ",", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", 
+          RowBox[{"3", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Blue", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", "Pi"}],
+          "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "Blue", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", 
+          RowBox[{"5", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Blue", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", 
+          RowBox[{"6", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", "Blue", ",", " ", 
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{"0", ",", "0", ",", "height21", ",", "radius21", ",", 
+          RowBox[{"7", "*", 
+           RowBox[{"Pi", "/", "4"}]}]}], "]"}]}], "}"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "PlotLabel", "->", "\"\<Some possible NV1 and NV2 vectors\>\""}]}], 
+    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Axes", "->", "True"}], ",", 
+   RowBox[{"AxesLabel", "->", 
+    RowBox[{"{", 
+     RowBox[{"\"\<x\>\"", ",", "\"\<y\>\"", ",", "\"\<z\>\""}], "}"}]}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{
+  3.9173555631477623`*^9, {3.917355877950901*^9, 3.9173559301703825`*^9}, {
+   3.9173565935909643`*^9, 3.9173566745311995`*^9}, {3.9173588944760933`*^9, 
+   3.917358967632044*^9}},
+ CellLabel->"In[59]:=",ExpressionUUID->"9c8b4754-816e-4f93-8534-37db7645a1e4"],
+
+Cell[BoxData[
+ Graphics3DBox[{
+   {RGBColor[0, 1, 0], Arrow3DBox[{{0, 0, 0}, {0, 0, 1}}]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0.5, 0, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2] 2^Rational[-1, 2], Rational[1, 2] 2^Rational[-1, 2], 
+        Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {0.35355339059327373`, 
+       0.35355339059327373`, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       0, Rational[1, 2], Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0, 0.5, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[-1, 2] 2^Rational[-1, 2], Rational[1, 2] 2^Rational[-1, 2], 
+        Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {-0.35355339059327373`,
+        0.35355339059327373`, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[-1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 
+       0}, {-0.5, 0, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[-1, 2] 2^Rational[-1, 2], Rational[-1, 2] 2^Rational[-1, 2], 
+        Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 
+       0}, {-0.35355339059327373`, -0.35355339059327373`, 
+       0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       0, Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0, -0.5, 0.8660254037844386}}]]}, 
+   {RGBColor[1, 0, 0], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       Rational[1, 2] 2^Rational[-1, 2], Rational[-1, 2] 2^Rational[-1, 2], 
+        Rational[1, 2] 3^Rational[1, 2]}}, {{0, 0, 0}, {
+       0.35355339059327373`, -0.35355339059327373`, 0.8660254037844386}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2) (
+          1 - (Rational[-1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+              3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2)))^Rational[1, 2], 0, 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 0}, {
+       0.6494480483301837, 0, -0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {(2 ((((Rational[1, 2] 3^Rational[1, 2]) 
+               Cos[Rational[39, 2] Degree] + 
+              Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+              Rational[1, 2] 
+               Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2])
+                 Sin[Rational[39, 2] Degree])^2)^(-1)/(
+          1 - (Rational[-1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+              3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2))))^
+        Rational[-1, 2], (
+         2 ((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+              Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+              Rational[1, 2] 
+               Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2])
+                 Sin[Rational[39, 2] Degree])^2)^(-1)/(
+          1 - (Rational[-1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+              3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2))))^Rational[-1, 2], 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 0}, {0.45922911900264146`, 
+       0.45922911900264146`, -0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       0, ((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2) (
+          1 - (Rational[-1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+              3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2)))^Rational[1, 2], 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 0}, {
+       0, 0.6494480483301837, -0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {-(2 ((((Rational[1, 2] 3^Rational[1, 2]) 
+                Cos[Rational[39, 2] Degree] + 
+               Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+               Rational[1, 2] 
+                Cos[Rational[39, 2] Degree] + (Rational[1, 2] 
+                 3^Rational[1, 2]) Sin[Rational[39, 2] Degree])^2)^(-1)/(
+           1 - (Rational[-1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2])
+                Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+               3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2))))^Rational[-1, 2], (
+         2 ((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+              Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+              Rational[1, 2] 
+               Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2])
+                 Sin[Rational[39, 2] Degree])^2)^(-1)/(
+          1 - (Rational[-1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+              3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2))))^Rational[-1, 2], 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 0}, {-0.45922911900264146`, 
+       0.45922911900264146`, -0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {-((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2) (
+           1 - (Rational[-1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2])
+                Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+               3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2)))^Rational[1, 2], 0, 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 
+       0}, {-0.6494480483301837, 0, -0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {-(2 ((((Rational[1, 2] 3^Rational[1, 2]) 
+                Cos[Rational[39, 2] Degree] + 
+               Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+               Rational[1, 2] 
+                Cos[Rational[39, 2] Degree] + (Rational[1, 2] 
+                 3^Rational[1, 2]) Sin[Rational[39, 2] Degree])^2)^(-1)/(
+           1 - (Rational[-1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2])
+                Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+               3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2))))^
+         Rational[-1, 2], -(
+          2 ((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+               Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+               Rational[1, 2] 
+                Cos[Rational[39, 2] Degree] + (Rational[1, 2] 
+                 3^Rational[1, 2]) Sin[Rational[39, 2] Degree])^2)^(-1)/(
+           1 - (Rational[-1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2])
+                Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+               3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2))))^Rational[-1, 2], 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 
+       0}, {-0.45922911900264146`, -0.45922911900264146`, \
+-0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 0}, {
+       0, -((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2) (
+           1 - (Rational[-1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2])
+                Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+               3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2)))^Rational[1, 2], 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 0}, {
+       0, -0.6494480483301837, -0.7604059656000309}}]]}, 
+   {RGBColor[0, 0, 1], 
+    Arrow3DBox[
+     NCache[{{0, 0, 
+       0}, {(2 ((((Rational[1, 2] 3^Rational[1, 2]) 
+               Cos[Rational[39, 2] Degree] + 
+              Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+              Rational[1, 2] 
+               Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2])
+                 Sin[Rational[39, 2] Degree])^2)^(-1)/(
+          1 - (Rational[-1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+              3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+            Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+            Rational[1, 2] 
+             Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+             Sin[Rational[39, 2] Degree])^2))))^
+        Rational[-1, 2], -(
+          2 ((((Rational[1, 2] 3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+               Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+               Rational[1, 2] 
+                Cos[Rational[39, 2] Degree] + (Rational[1, 2] 
+                 3^Rational[1, 2]) Sin[Rational[39, 2] Degree])^2)^(-1)/(
+           1 - (Rational[-1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2])
+                Sin[Rational[39, 2] Degree])^2/(((Rational[1, 2] 
+               3^Rational[1, 2]) Cos[Rational[39, 2] Degree] + 
+             Rational[-1, 2] Sin[Rational[39, 2] Degree])^2 + (
+             Rational[1, 2] 
+              Cos[Rational[39, 2] Degree] + (Rational[1, 2] 3^Rational[1, 2]) 
+              Sin[Rational[39, 2] Degree])^2))))^Rational[-1, 2], 
+        Rational[-1, 2] 
+         Cos[Rational[39, 2] Degree] + (Rational[-1, 2] 3^Rational[1, 2]) 
+         Sin[Rational[39, 2] Degree]}}, {{0, 0, 0}, {
+       0.45922911900264146`, -0.45922911900264146`, -0.7604059656000309}}]], 
+    StyleBox[{},
+     PlotLabel -> "Some possible NV1 and NV2 vectors"]}},
+  Axes->True,
+  AxesLabel->{
+    FormBox["\"x\"", TraditionalForm], 
+    FormBox["\"y\"", TraditionalForm], 
+    FormBox["\"z\"", TraditionalForm]}]], "Output",
+ CellChangeTimes->{
+  3.9173555643000956`*^9, {3.9173559055379496`*^9, 3.9173559308164463`*^9}, 
+   3.917356622861364*^9, 3.917356675523158*^9, {3.9173588472250633`*^9, 
+   3.9173588552466216`*^9}, 3.9173589109977055`*^9, {3.917358963000884*^9, 
+   3.917358968778476*^9}, 3.917609322337706*^9},
+ CellLabel->"Out[59]=",ExpressionUUID->"ea32e55f-5796-423d-b31b-3070d105aaad"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Set up system of equations with four constant angles",
+ FontSize->24,
+ FontWeight->"Bold",
+ FontColor->RGBColor[1, 0, 0]]], "Text",
+ CellChangeTimes->{{3.917010610046566*^9, 
+  3.9170106187241163`*^9}},ExpressionUUID->"44af4251-e732-4516-9f6a-\
+7f5c06a28dfe"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"The", " ", "constants", " ", 
+     RowBox[{"are", ":", " ", 
+      RowBox[{"phi_", "13"}]}]}], ",", " ", 
+    RowBox[{"phi_", "14"}], ",", " ", 
+    RowBox[{"phi_", "23"}], ",", 
+    RowBox[{"phi_", "24"}], ",", " ", 
+    RowBox[{"and", " ", "the", " ", "109.5"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"minorAngleBetween", "[", 
+     RowBox[{"vector11", ",", "vector12"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"phi_", "13"}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"vector11rot", ",", "vector12rot"}], "]"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{"vector11", ",", "vector22"}], "]"}]}], "=", 
+      RowBox[{
+       RowBox[{"phi_", "14"}], "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"minorAngleBetween", "[", 
+          RowBox[{"vector11rot", ",", "vector22rot"}], "]"}], 
+         "\[IndentingNewLine]", 
+         RowBox[{"minorAngleBetween", "[", 
+          RowBox[{"vector21", ",", "vector12"}], "]"}]}], "=", 
+        RowBox[{
+         RowBox[{"phi_", "23"}], "=", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"minorAngleBetween", "[", 
+            RowBox[{"vector21rot", ",", "vector12rot"}], "]"}], 
+           "\[IndentingNewLine]", 
+           RowBox[{"minorAngleBetween", "[", 
+            RowBox[{"vector21", ",", "vector12"}], "]"}]}], "=", 
+          RowBox[{
+           RowBox[{"phi_", "23"}], "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"minorAngleBetween", "[", 
+              RowBox[{"vector21rot", ",", "vector12rot"}], "]"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{"minorAngleBetween", "[", 
+              RowBox[{"vector11", ",", "vector21"}], "]"}]}], "=", 
+            RowBox[{
+             RowBox[{"109.5", "\[IndentingNewLine]", 
+              RowBox[{"minorAngleBetween", "[", 
+               RowBox[{"vector12", ",", "vector22"}], "]"}]}], "=", 
+             RowBox[{
+              RowBox[{"109.5", "\[IndentingNewLine]", 
+               RowBox[{"minorAngleBetween", "[", 
+                RowBox[{"vector11rot", ",", "vector21rot"}], "]"}]}], "=", 
+              RowBox[{
+               RowBox[{"109.5", "\[IndentingNewLine]", 
+                RowBox[{"minorAngleBetween", "[", 
+                 RowBox[{"vector12rot", ",", "vector22rot"}], "]"}]}], "=", 
+               "109.5"}]}]}]}]}]}]}]}]}]}]}]}], "\[IndentingNewLine]", "*)"}],
+   "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"phi11", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi11\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"phi21", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi21\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"phi12", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi12\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"phi22", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi22\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"phi11rot", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi11rot\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"phi21rot", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi21rot\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"phi12rot", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi12rot\>\"", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"phi22rot", "=", 
+     RowBox[{"Symbol", "[", "\"\<phi22rot\>\"", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"equations", "=", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Phi_", "13"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+            "phi11"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height12", ",", " ", "radius12", ",", " ", 
+            "phi12"}], "]"}]}], "]"}], "==", 
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height11rot", ",", " ", "radius11rot", ",", 
+            " ", "phi11rot"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height12rot", ",", " ", "radius12rot", ",", 
+            " ", "phi12rot"}], "]"}]}], "]"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"Phi_", "14"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+            "phi11"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height22", ",", " ", "radius22", ",", " ", 
+            "phi22"}], "]"}]}], "]"}], "==", 
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height11rot", ",", " ", "radius11rot", ",", 
+            " ", "phi11rot"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height22rot", ",", " ", "radius22rot", ",", 
+            " ", "phi22rot"}], "]"}]}], "]"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"Phi_", "23"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+            "phi21"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height12", ",", " ", "radius12", ",", " ", 
+            "phi12"}], "]"}]}], "]"}], "==", 
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height21rot", ",", " ", "radius21rot", ",", 
+            " ", "phi21rot"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height12rot", ",", " ", "radius12rot", ",", 
+            " ", "phi12rot"}], "]"}]}], "]"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"Phi_", "24"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+            "phi21"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height22", ",", " ", "radius22", ",", " ", 
+            "phi22"}], "]"}]}], "]"}], "==", 
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height21rot", ",", " ", "radius21rot", ",", 
+            " ", "phi21rot"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height22rot", ",", " ", "radius22rot", ",", 
+            " ", "phi22rot"}], "]"}]}], "]"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"Phi_", "12"}], "=", "109.5"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+            "phi11"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+            "phi21"}], "]"}]}], "]"}], "==", 
+        RowBox[{"109.5", " ", "*", "Degree"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"Phi_", "34"}], "=", "109.5"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height12", ",", " ", "radius12", ",", " ", 
+            "phi12"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height22", ",", " ", "radius22", ",", " ", 
+            "phi22"}], "]"}]}], "]"}], "==", 
+        RowBox[{"109.5", "*", " ", "Degree"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"After", " ", "rotation"}], ",", " ", 
+         RowBox[{
+          RowBox[{"Phi_", "12"}], "=", "109.5"}]}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height11rot", ",", " ", "radius11rot", ",", 
+            " ", "phi11rot"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height21rot", ",", " ", "radius21rot", ",", 
+            " ", "phi21rot"}], "]"}]}], "]"}], "==", 
+        RowBox[{"109.5", " ", "*", "Degree"}]}], "&&", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"After", " ", "rotation"}], ",", " ", 
+         RowBox[{
+          RowBox[{"Phi_", "34"}], "=", "109.5"}]}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"minorAngleBetween", "[", 
+         RowBox[{
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height12rot", ",", " ", "radius12rot", ",", 
+            " ", "phi12rot"}], "]"}], ",", 
+          RowBox[{"generateVector", "[", 
+           RowBox[{
+           "0", ",", "0", ",", "height22rot", ",", " ", "radius22rot", ",", 
+            " ", "phi22rot"}], "]"}]}], "]"}], "==", 
+        RowBox[{"109.5", "*", " ", "Degree"}]}]}], "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Bounds", " ", "for", " ", "angle", " ", "variables"}], "*)"}],
+       "\[IndentingNewLine]", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol", "=", 
+     RowBox[{"NSolve", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"equations", ",", 
+         RowBox[{"0", "<=", "phi11"}], ",", "phi21", ",", "phi12", ",", 
+         "phi22", ",", "phi11rot", ",", "phi21rot", ",", "phi12rot", ",", 
+         RowBox[{"phi22rot", "<=", 
+          RowBox[{"2", "*", "Pi"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "phi11", ",", "phi21", ",", "phi12", ",", "phi22", ",", "phi11rot", 
+         ",", "phi21rot", ",", "phi12rot", ",", "phi22rot"}], "}"}]}], 
+      "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.917011826384827*^9, 3.91701187167931*^9}, {
+   3.9170119124392457`*^9, 3.9170120098996735`*^9}, {3.9170120846980505`*^9, 
+   3.917012140958744*^9}, 3.9170145115422487`*^9, {3.917015478555997*^9, 
+   3.917015562559795*^9}, {3.9170156803576784`*^9, 3.9170156882201357`*^9}, {
+   3.9170175781672463`*^9, 3.9170175834746666`*^9}, {3.9170176173875103`*^9, 
+   3.917017628267651*^9}, 3.9173562461965137`*^9, {3.9173562822758656`*^9, 
+   3.9173563258200397`*^9}, {3.917359096309278*^9, 3.9173592349735165`*^9}, {
+   3.9173593238506036`*^9, 3.9173593326263466`*^9}, {3.9173593868406086`*^9, 
+   3.9173594281066647`*^9}, {3.91735947539585*^9, 3.917359494658677*^9}, {
+   3.917359532513976*^9, 3.917359757743624*^9}, {3.9173598011432304`*^9, 
+   3.917359905558031*^9}, 3.9173599444568624`*^9, {3.9176096060750694`*^9, 
+   3.917609663073138*^9}, {3.9176099883491545`*^9, 3.9176099908403053`*^9}, {
+   3.917610035448139*^9, 3.917610047181596*^9}, {3.917610164099019*^9, 
+   3.9176101806073294`*^9}, {3.91761040294792*^9, 3.9176104031202173`*^9}, 
+   3.9176106235235996`*^9, {3.917611565467325*^9, 3.9176115920368705`*^9}},
+ CellLabel->
+  "In[144]:=",ExpressionUUID->"9353460e-5cd6-4ca4-9e9b-05ad7acf0570"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "NSolve", "naqs", 
+   "\"\\!\\(\\*RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \\\"\
+\[RightSkeleton]\\\"}]\\) is not a quantified system of equations and \
+inequalities.\"", 2, 153, 15, 27903919018078151494, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.917610406062436*^9, {3.9176106245890713`*^9, 3.917610648646464*^9}},
+ CellLabel->
+  "During evaluation of \
+In[144]:=",ExpressionUUID->"1816d8b2-7525-45be-bc7b-2ff438f02eb4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["sol"], "Input",
+ CellChangeTimes->{3.917610194270374*^9},
+ CellLabel->
+  "In[133]:=",ExpressionUUID->"1feac86c-da52-4c5a-a0cb-d49fa4f0b623"],
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"0.5`", " ", 
+            RowBox[{"Cos", "[", "phi11", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi12", "]"}]}], "+", 
+           RowBox[{"0.5`", " ", 
+            RowBox[{"Sin", "[", "phi11", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi12", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.75`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", 
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"-", "0.11577012246792666`"}], "+", 
+           RowBox[{"0.7068855475289643`", " ", 
+            RowBox[{"Cos", "[", "phi11rot", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi12rot", "]"}]}], "+", 
+           RowBox[{"0.7068855475289643`", " ", 
+            RowBox[{"Sin", "[", "phi11rot", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi12rot", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.486146222988493`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.5138537770115067`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.5138537770115067`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11rot", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.027569320962421578`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.9724306790375781`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.9724306790375781`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12rot", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}]}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"-", "0.816351477947069`"}], "+", 
+           RowBox[{"0.16690342961688537`", " ", 
+            RowBox[{"Cos", "[", "phi11", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22", "]"}]}], "+", 
+           RowBox[{"0.16690342961688537`", " ", 
+            RowBox[{"Sin", "[", "phi11", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.75`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.8885729807284853`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", 
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"-", "0.5535161295917981`"}], "+", 
+           RowBox[{"0.4359033811728908`", " ", 
+            RowBox[{"Cos", "[", "phi11rot", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22rot", "]"}]}], "+", 
+           RowBox[{"0.4359033811728908`", " ", 
+            RowBox[{"Sin", "[", "phi11rot", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22rot", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.486146222988493`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.5138537770115067`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.5138537770115067`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11rot", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.6302221250118324`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3697778749881674`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.3697778749881674`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22rot", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}]}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"0.6494480483301837`", " ", 
+            RowBox[{"Cos", "[", "phi12", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi21", "]"}]}], "+", 
+           RowBox[{"0.6494480483301837`", " ", 
+            RowBox[{"Sin", "[", "phi12", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi21", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.5782172325201155`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", 
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{"0.13165927591155765`", "\[VeryThinSpace]", "+", 
+           RowBox[{"0.6008464851905675`", " ", 
+            RowBox[{"Cos", "[", "phi12rot", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi21rot", "]"}]}], "+", 
+           RowBox[{"0.6008464851905675`", " ", 
+            RowBox[{"Sin", "[", "phi12rot", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi21rot", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.027569320962421578`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.9724306790375781`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.9724306790375781`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12rot", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.6287483452052749`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3712516547947249`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.3712516547947249`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21rot", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}]}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{"0.7167902132486008`", "\[VeryThinSpace]", "+", 
+           RowBox[{"0.21679021324860076`", " ", 
+            RowBox[{"Cos", "[", "phi21", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22", "]"}]}], "+", 
+           RowBox[{"0.21679021324860076`", " ", 
+            RowBox[{"Sin", "[", "phi21", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.5782172325201155`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.8885729807284853`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", 
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{"0.6294848037982661`", "\[VeryThinSpace]", "+", 
+           RowBox[{"0.3705140321173195`", " ", 
+            RowBox[{"Cos", "[", "phi21rot", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22rot", "]"}]}], "+", 
+           RowBox[{"0.3705140321173195`", " ", 
+            RowBox[{"Sin", "[", "phi21rot", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22rot", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.6287483452052749`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3712516547947249`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.3712516547947249`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21rot", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.6302221250118324`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3697778749881674`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.3697778749881674`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22rot", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}]}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"-", "0.6585308833988627`"}], "+", 
+           RowBox[{"0.32472402416509183`", " ", 
+            RowBox[{"Cos", "[", "phi11", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi21", "]"}]}], "+", 
+           RowBox[{"0.32472402416509183`", " ", 
+            RowBox[{"Sin", "[", "phi11", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi21", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.75`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.5782172325201155`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", "1.911135530933791`"}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"0.33380685923377074`", " ", 
+            RowBox[{"Cos", "[", "phi12", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22", "]"}]}], "+", 
+           RowBox[{"0.33380685923377074`", " ", 
+            RowBox[{"Sin", "[", "phi12", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.8885729807284853`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", "1.911135530933791`"}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"-", "0.5528685496859173`"}], "+", 
+           RowBox[{"0.4367711815562485`", " ", 
+            RowBox[{"Cos", "[", "phi11rot", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi21rot", "]"}]}], "+", 
+           RowBox[{"0.4367711815562485`", " ", 
+            RowBox[{"Sin", "[", "phi11rot", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi21rot", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.486146222988493`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.5138537770115067`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.5138537770115067`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11rot", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.6287483452052749`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3712516547947249`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.3712516547947249`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21rot", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", "1.911135530933791`"}], "&&", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{"0.13181348960584643`", "\[VeryThinSpace]", "+", 
+           RowBox[{"0.5996526912036803`", " ", 
+            RowBox[{"Cos", "[", "phi12rot", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22rot", "]"}]}], "+", 
+           RowBox[{"0.5996526912036803`", " ", 
+            RowBox[{"Sin", "[", "phi12rot", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22rot", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.027569320962421578`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.9724306790375781`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.9724306790375781`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12rot", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.6302221250118324`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3697778749881674`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22rot", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.3697778749881674`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22rot", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", "1.911135530933791`"}]}], "}"}], ",", 
+     RowBox[{"0", "\[LessEqual]", "phi11"}], ",", "phi21", ",", "phi12", ",", 
+     "phi22", ",", "phi11rot", ",", "phi21rot", ",", "phi12rot", ",", 
+     RowBox[{"phi22rot", "\[LessEqual]", 
+      RowBox[{"2", " ", "\[Pi]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "phi11", ",", "phi21", ",", "phi12", ",", "phi22", ",", "phi11rot", ",", 
+     "phi21rot", ",", "phi12rot", ",", "phi22rot"}], "}"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.9176101952439547`*^9, 3.9176104098847995`*^9},
+ CellLabel->
+  "Out[133]=",ExpressionUUID->"52afbd39-41ee-4dba-a21e-e6e54c58d79a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"phi11", "=", 
+   RowBox[{"Symbol", "[", "\"\<phi11\>\"", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"phi21", "=", 
+   RowBox[{"Symbol", "[", "\"\<phi21\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"phi12", "=", 
+   RowBox[{"Symbol", "[", "\"\<phi12\>\"", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"phi22", "=", 
+    RowBox[{"Symbol", "[", "\"\<phi22\>\"", "]"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"myeq", "=", 
+    RowBox[{
+     RowBox[{"minorAngleBetween", "[", 
+      RowBox[{
+       RowBox[{"generateVector", "[", 
+        RowBox[{
+        "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+         "phi11"}], "]"}], ",", 
+       RowBox[{"generateVector", "[", 
+        RowBox[{
+        "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+         "phi21"}], "]"}]}], "]"}], "==", 
+     RowBox[{
+      RowBox[{"1095", "/", "10"}], " ", "*", "Degree"}]}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"myeq", "=", 
+    RowBox[{
+     RowBox[{"minorAngleBetween", "[", 
+      RowBox[{
+       RowBox[{"generateVector", "[", 
+        RowBox[{
+        "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+         "phi11"}], "]"}], ",", 
+       RowBox[{"generateVector", "[", 
+        RowBox[{
+        "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+         "phi21"}], "]"}]}], "]"}], "==", 
+     RowBox[{
+      RowBox[{"1095", "/", "10"}], " ", "*", "Degree"}]}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"myeq", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{
+         RowBox[{"generateVector", "[", 
+          RowBox[{
+          "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+           "phi11"}], "]"}], ",", 
+         RowBox[{"generateVector", "[", 
+          RowBox[{
+          "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+           "phi21"}], "]"}]}], "]"}], "==", 
+       RowBox[{
+        RowBox[{"1095", "/", "10"}], " ", "*", "Degree"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"minorAngleBetween", "[", 
+        RowBox[{
+         RowBox[{"generateVector", "[", 
+          RowBox[{
+          "0", ",", "0", ",", "height12", ",", " ", "radius12", ",", " ", 
+           "phi12"}], "]"}], ",", 
+         RowBox[{"generateVector", "[", 
+          RowBox[{
+          "0", ",", "0", ",", "height22", ",", " ", "radius22", ",", " ", 
+           "phi22"}], "]"}]}], "]"}], "==", 
+       RowBox[{"109.5", "*", " ", "Degree"}]}]}], "}"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"myeq", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"minorAngleBetween", "[", 
+       RowBox[{
+        RowBox[{"generateVector", "[", 
+         RowBox[{
+         "0", ",", "0", ",", "height11", ",", " ", "radius11", ",", " ", 
+          "phi11"}], "]"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{
+         "0", ",", "0", ",", "height21", ",", " ", "radius21", ",", " ", 
+          "phi21"}], "]"}]}], "]"}], "==", 
+      RowBox[{
+       RowBox[{"1095", "/", "10"}], " ", "*", "Degree"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"minorAngleBetween", "[", 
+       RowBox[{
+        RowBox[{"generateVector", "[", 
+         RowBox[{
+         "0", ",", "0", ",", "height12", ",", " ", "radius12", ",", " ", 
+          "phi12"}], "]"}], ",", 
+        RowBox[{"generateVector", "[", 
+         RowBox[{
+         "0", ",", "0", ",", "height22", ",", " ", "radius22", ",", " ", 
+          "phi22"}], "]"}]}], "]"}], "==", 
+      RowBox[{"109.5", "*", " ", "Degree"}]}]}], "}"}]}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"mysol", "=", 
+    RowBox[{"NSolve", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"myeq", ",", 
+        RowBox[{"0", "<=", "phi11"}], ",", 
+        RowBox[{"phi21", "<=", 
+         RowBox[{"2", "Pi"}]}]}], "}"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"phi11", ",", "phi21"}], "}"}]}], "]"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"mysol", "=", 
+  RowBox[{"NSolve", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"myeq", ",", 
+      RowBox[{"0", "<=", "phi11", "<=", 
+       RowBox[{"2", " ", "Pi"}]}], ",", 
+      RowBox[{"0", "<=", "phi21", "<=", 
+       RowBox[{"2", " ", "Pi"}]}], ",", 
+      RowBox[{"0", "<=", "phi12", "<=", 
+       RowBox[{"2", " ", "Pi"}]}], ",", 
+      RowBox[{"0", "<=", "phi22", "<=", 
+       RowBox[{"2", " ", "Pi"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"phi11", ",", "phi21", ",", "phi12", ",", "phi22"}], "}"}]}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.9170181552929378`*^9, 3.9170182095090857`*^9}, {
+   3.917018354602563*^9, 3.9170183565454664`*^9}, {3.917313896573023*^9, 
+   3.9173138993212833`*^9}, 3.917313936336977*^9, {3.9173140661527796`*^9, 
+   3.9173140691484156`*^9}, {3.91731412536432*^9, 3.9173142462968764`*^9}, {
+   3.917314765852352*^9, 3.9173147935480947`*^9}, {3.917315802037205*^9, 
+   3.917315814796955*^9}, {3.9173159203604536`*^9, 3.917315940737293*^9}, {
+   3.9173559505135155`*^9, 3.9173559543144608`*^9}, {3.917356163832122*^9, 
+   3.917356163958202*^9}, {3.9173589898340297`*^9, 3.917359011046414*^9}, {
+   3.917609547828006*^9, 3.917609551541986*^9}, 3.917610912146237*^9, {
+   3.917611038133175*^9, 3.9176111406148624`*^9}, {3.9176113017764416`*^9, 
+   3.917611302153675*^9}, {3.9176114049622173`*^9, 3.917611429126571*^9}, {
+   3.9176114768766828`*^9, 3.9176115119650564`*^9}},
+ CellLabel->
+  "In[182]:=",ExpressionUUID->"f35abed4-d58b-4b23-92a8-e177caf80a86"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ArcCos", "[", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"-", "0.6585308833988627`"}], "+", 
+       RowBox[{"0.32472402416509183`", " ", 
+        RowBox[{"Cos", "[", "phi11", "]"}], " ", 
+        RowBox[{"Cos", "[", "phi21", "]"}]}], "+", 
+       RowBox[{"0.32472402416509183`", " ", 
+        RowBox[{"Sin", "[", "phi11", "]"}], " ", 
+        RowBox[{"Sin", "[", "phi21", "]"}]}]}], 
+      RowBox[{
+       SqrtBox[
+        RowBox[{"0.75`", "\[VeryThinSpace]", "+", 
+         RowBox[{"0.25`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Cos", "[", "phi11", "]"}], "]"}], "2"]}], "+", 
+         RowBox[{"0.25`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Sin", "[", "phi11", "]"}], "]"}], "2"]}]}]], " ", 
+       SqrtBox[
+        RowBox[{"0.5782172325201155`", "\[VeryThinSpace]", "+", 
+         RowBox[{"0.4217827674798845`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Cos", "[", "phi21", "]"}], "]"}], "2"]}], "+", 
+         RowBox[{"0.4217827674798845`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Sin", "[", "phi21", "]"}], "]"}], "2"]}]}]]}]], "]"}], 
+    "\[Equal]", 
+    FractionBox[
+     RowBox[{"219", " ", "\[Degree]"}], "2"]}], ",", 
+   RowBox[{
+    RowBox[{"ArcCos", "[", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"0.33380685923377074`", " ", 
+        RowBox[{"Cos", "[", "phi12", "]"}], " ", 
+        RowBox[{"Cos", "[", "phi22", "]"}]}], "+", 
+       RowBox[{"0.33380685923377074`", " ", 
+        RowBox[{"Sin", "[", "phi12", "]"}], " ", 
+        RowBox[{"Sin", "[", "phi22", "]"}]}]}], 
+      RowBox[{
+       SqrtBox[
+        RowBox[{
+         RowBox[{"1.`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Cos", "[", "phi12", "]"}], "]"}], "2"]}], "+", 
+         RowBox[{"1.`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Sin", "[", "phi12", "]"}], "]"}], "2"]}]}]], " ", 
+       SqrtBox[
+        RowBox[{"0.8885729807284853`", "\[VeryThinSpace]", "+", 
+         RowBox[{"0.11142701927151444`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Cos", "[", "phi22", "]"}], "]"}], "2"]}], "+", 
+         RowBox[{"0.11142701927151444`", " ", 
+          SuperscriptBox[
+           RowBox[{"Abs", "[", 
+            RowBox[{"Sin", "[", "phi22", "]"}], "]"}], "2"]}]}]]}]], "]"}], 
+    "\[Equal]", "1.911135530933791`"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.9170182393483634`*^9, 3.9170183575372553`*^9, 3.9170184071720605`*^9, 
+   3.917018550552281*^9, 3.9170185932522736`*^9, 3.9173142534313097`*^9, {
+   3.917314774120204*^9, 3.9173147944734163`*^9}, 3.9173158186837373`*^9, 
+   3.917315942779286*^9, 3.9173559643043113`*^9, 3.917359015308141*^9, 
+   3.9176093387929115`*^9, 3.9176095553551254`*^9, 3.917610913260065*^9, {
+   3.9176111296960845`*^9, 3.917611141507456*^9}, 3.917611303332608*^9, 
+   3.9176114299109354`*^9, 3.9176115129843793`*^9},
+ CellLabel->
+  "Out[186]=",ExpressionUUID->"c9c7f44c-2110-48f8-a29e-09c081914a7f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "NSolve", "naqs", 
+   "\"\\!\\(\\*RowBox[{RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{RowBox[{\\\"ArcCos\\\", \\\"[\\\", \
+FractionBox[RowBox[{RowBox[{\\\"-\\\", \\\"0.6585308833988627`\\\"}], \\\"+\\\
+\", RowBox[{\\\"0.32472402416509183`\\\", \\\" \\\", RowBox[{\\\"Cos\\\", \
+\\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \\\"\[RightSkeleton]\\\
+\"}], \\\"]\\\"}], \\\" \\\", RowBox[{\\\"Cos\\\", \\\"[\\\", RowBox[{\\\"\
+\[LeftSkeleton]\\\", \\\"1\\\", \\\"\[RightSkeleton]\\\"}], \\\"]\\\"}]}], \\\
+\"+\\\", RowBox[{\\\"0.32472402416509183`\\\", \\\" \\\", \
+RowBox[{\\\"Sin\\\", \\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\"]\\\"}], \\\" \\\", RowBox[{\\\"Sin\\\", \
+\\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \\\"\[RightSkeleton]\\\
+\"}], \\\"]\\\"}]}]}], RowBox[{SqrtBox[RowBox[{RowBox[{\\\"0.75`\\\", \\\"\
+\[VeryThinSpace]\\\"}], \\\"+\\\", RowBox[{\\\"Times\\\", \\\"[\\\", RowBox[{\
+\\\"\[LeftSkeleton]\\\", \\\"2\\\", \\\"\[RightSkeleton]\\\"}], \\\"]\\\"}], \
+\\\"+\\\", RowBox[{\\\"Times\\\", \\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
+\\\"2\\\", \\\"\[RightSkeleton]\\\"}], \\\"]\\\"}]}]], \\\" \\\", \
+SqrtBox[RowBox[{RowBox[{\\\"0.5782172325201155`\\\", \
+\\\"\[VeryThinSpace]\\\"}], \\\"+\\\", RowBox[{\\\"Times\\\", \\\"[\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"2\\\", \\\"\[RightSkeleton]\\\"}], \\\"]\
+\\\"}], \\\"+\\\", RowBox[{\\\"Times\\\", \\\"[\\\", RowBox[{\\\"\
+\[LeftSkeleton]\\\", \\\"2\\\", \\\"\[RightSkeleton]\\\"}], \
+\\\"]\\\"}]}]]}]], \\\"]\\\"}], \\\"\[Equal]\\\", FractionBox[RowBox[{\\\"219\
+\\\", \\\" \\\", \\\"\[Degree]\\\"}], \\\"2\\\"]}], \\\",\\\", \
+RowBox[{RowBox[{\\\"ArcCos\\\", \\\"[\\\", \
+FractionBox[RowBox[{RowBox[{\\\"0.33380685923377074`\\\", \\\" \\\", RowBox[{\
+\\\"Cos\\\", \\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \\\"\
+\[RightSkeleton]\\\"}], \\\"]\\\"}], \\\" \\\", RowBox[{\\\"Cos\\\", \
+\\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \\\"\[RightSkeleton]\\\
+\"}], \\\"]\\\"}]}], \\\"+\\\", RowBox[{\\\"0.33380685923377074`\\\", \\\" \\\
+\", RowBox[{\\\"Sin\\\", \\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
+\\\"1\\\", \\\"\[RightSkeleton]\\\"}], \\\"]\\\"}], \\\" \\\", \
+RowBox[{\\\"Sin\\\", \\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"1\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\"]\\\"}]}]}], RowBox[{SqrtBox[RowBox[{RowBox[{\
+\\\"Times\\\", \\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"2\\\", \\\"\
+\[RightSkeleton]\\\"}], \\\"]\\\"}], \\\"+\\\", RowBox[{\\\"Times\\\", \
+\\\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"2\\\", \\\"\[RightSkeleton]\\\
+\"}], \\\"]\\\"}]}]], \\\" \\\", \
+SqrtBox[RowBox[{RowBox[{\\\"0.8885729807284853`\\\", \
+\\\"\[VeryThinSpace]\\\"}], \\\"+\\\", RowBox[{\\\"Times\\\", \\\"[\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"2\\\", \\\"\[RightSkeleton]\\\"}], \\\"]\
+\\\"}], \\\"+\\\", RowBox[{\\\"Times\\\", \\\"[\\\", RowBox[{\\\"\
+\[LeftSkeleton]\\\", \\\"2\\\", \\\"\[RightSkeleton]\\\"}], \
+\\\"]\\\"}]}]]}]], \\\"]\\\"}], \\\"\[Equal]\\\", \
+\\\"1.911135530933791`\\\"}]}], \\\"}\\\"}], \\\"&&\\\", RowBox[{\\\"0\\\", \
+\\\"\[LessEqual]\\\", \\\"phi11\\\", \\\"\[LessEqual]\\\", RowBox[{\\\"2\\\", \
+\\\" \\\", \\\"\[Pi]\\\"}]}], \\\"&&\\\", RowBox[{\\\"0\\\", \\\"\[LessEqual]\
+\\\", \\\"phi21\\\", \\\"\[LessEqual]\\\", RowBox[{\\\"2\\\", \\\" \\\", \\\"\
+\[Pi]\\\"}]}], \\\"&&\\\", RowBox[{\\\"0\\\", \\\"\[LessEqual]\\\", \\\"phi12\
+\\\", \\\"\[LessEqual]\\\", RowBox[{\\\"2\\\", \\\" \\\", \\\"\[Pi]\\\"}]}], \
+\\\"&&\\\", RowBox[{\\\"0\\\", \\\"\[LessEqual]\\\", \\\"phi22\\\", \\\"\
+\[LessEqual]\\\", RowBox[{\\\"2\\\", \\\" \\\", \\\"\[Pi]\\\"}]}]}]\\) is not \
+a quantified system of equations and inequalities.\"", 2, 187, 25, 
+   27903919018078151494, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.917314255030138*^9, {3.917314775092902*^9, 3.917314795414669*^9}, 
+   3.9173159008488803`*^9, 3.9173159437358475`*^9, 3.9173559652754917`*^9, 
+   3.9173590158046093`*^9, 3.9176093393889914`*^9, 3.917609555606246*^9, 
+   3.9176109135898914`*^9, {3.9176111296960845`*^9, 3.917611141507456*^9}, 
+   3.917611303332608*^9, 3.9176114301615086`*^9, 3.9176115129843793`*^9},
+ CellLabel->
+  "During evaluation of \
+In[182]:=",ExpressionUUID->"032fcdc1-31dc-4680-9d9b-5eec157b7a3a"],
+
+Cell[BoxData[
+ RowBox[{"NSolve", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"-", "0.6585308833988627`"}], "+", 
+           RowBox[{"0.32472402416509183`", " ", 
+            RowBox[{"Cos", "[", "phi11", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi21", "]"}]}], "+", 
+           RowBox[{"0.32472402416509183`", " ", 
+            RowBox[{"Sin", "[", "phi11", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi21", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"0.75`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi11", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.25`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi11", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.5782172325201155`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi21", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.4217827674798845`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi21", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", 
+        FractionBox[
+         RowBox[{"219", " ", "\[Degree]"}], "2"]}], ",", 
+       RowBox[{
+        RowBox[{"ArcCos", "[", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"0.33380685923377074`", " ", 
+            RowBox[{"Cos", "[", "phi12", "]"}], " ", 
+            RowBox[{"Cos", "[", "phi22", "]"}]}], "+", 
+           RowBox[{"0.33380685923377074`", " ", 
+            RowBox[{"Sin", "[", "phi12", "]"}], " ", 
+            RowBox[{"Sin", "[", "phi22", "]"}]}]}], 
+          RowBox[{
+           SqrtBox[
+            RowBox[{
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi12", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"1.`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi12", "]"}], "]"}], "2"]}]}]], " ", 
+           SqrtBox[
+            RowBox[{"0.8885729807284853`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Cos", "[", "phi22", "]"}], "]"}], "2"]}], "+", 
+             RowBox[{"0.11142701927151444`", " ", 
+              SuperscriptBox[
+               RowBox[{"Abs", "[", 
+                RowBox[{"Sin", "[", "phi22", "]"}], "]"}], "2"]}]}]]}]], 
+         "]"}], "\[Equal]", "1.911135530933791`"}]}], "}"}], ",", 
+     RowBox[{"0", "\[LessEqual]", "phi11", "\[LessEqual]", 
+      RowBox[{"2", " ", "\[Pi]"}]}], ",", 
+     RowBox[{"0", "\[LessEqual]", "phi21", "\[LessEqual]", 
+      RowBox[{"2", " ", "\[Pi]"}]}], ",", 
+     RowBox[{"0", "\[LessEqual]", "phi12", "\[LessEqual]", 
+      RowBox[{"2", " ", "\[Pi]"}]}], ",", 
+     RowBox[{"0", "\[LessEqual]", "phi22", "\[LessEqual]", 
+      RowBox[{"2", " ", "\[Pi]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"phi11", ",", "phi21", ",", "phi12", ",", "phi22"}], "}"}]}], 
+  "]"}]], "Output",
+ CellChangeTimes->{
+  3.9170182393483634`*^9, 3.9170183575372553`*^9, 3.9170184071720605`*^9, 
+   3.917018550552281*^9, 3.9170185932522736`*^9, 3.9173142534313097`*^9, {
+   3.917314774120204*^9, 3.9173147944734163`*^9}, 3.9173158186837373`*^9, 
+   3.917315942779286*^9, 3.9173559643043113`*^9, 3.917359015308141*^9, 
+   3.9176093387929115`*^9, 3.9176095553551254`*^9, 3.917610913260065*^9, {
+   3.9176111296960845`*^9, 3.917611141507456*^9}, 3.917611303332608*^9, 
+   3.9176114299109354`*^9, 3.917611513009077*^9},
+ CellLabel->
+  "Out[187]=",ExpressionUUID->"76080266-7f56-41e9-99ab-89816276b73c"]
+}, Open  ]]
+},
+WindowSize->{1152, 579.6},
+WindowMargins->{{
+  Automatic, -5.399999999999864}, {-5.399999999999977, Automatic}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a9aa1698-f0f7-493d-8349-f34a647283bb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 265, 6, 41, "Text",ExpressionUUID->"53caf5f9-00f2-4589-8bb0-e7624539b7c4"],
+Cell[CellGroupData[{
+Cell[848, 30, 4908, 131, 214, "Input",ExpressionUUID->"4c94e279-124a-487c-a5d8-4a1b4a11694d"],
+Cell[5759, 163, 1001, 21, 404, "Output",ExpressionUUID->"c13fcc01-da3e-480f-a454-c2203b7f0f08"]
+}, Open  ]],
+Cell[6775, 187, 340, 8, 41, "Text",ExpressionUUID->"1e6b1d00-7d4a-41ae-b557-ed7d19e44875"],
+Cell[CellGroupData[{
+Cell[7140, 199, 4015, 100, 197, "Input",ExpressionUUID->"6adba582-21a2-4ff9-97d6-8fd823a2aee1"],
+Cell[11158, 301, 2226, 44, 404, "Output",ExpressionUUID->"8a437b11-d568-4fb0-bf16-f9b32379b307"]
+}, Open  ]],
+Cell[13399, 348, 299, 7, 41, "Text",ExpressionUUID->"d31a99ec-b840-49ec-9c2e-9b809c18695b"],
+Cell[CellGroupData[{
+Cell[13723, 359, 5443, 156, 300, "Input",ExpressionUUID->"479716af-805f-41fb-b739-a34c2cfecbad"],
+Cell[19169, 517, 7564, 141, 380, "Output",ExpressionUUID->"0281a0ea-ed4c-4170-9e24-cfac26b319fa"]
+}, Open  ]],
+Cell[26748, 661, 402, 8, 41, "Text",ExpressionUUID->"b3cac2fe-9f84-497b-a3e4-10cffd5f421d"],
+Cell[CellGroupData[{
+Cell[27175, 673, 7547, 214, 488, "Input",ExpressionUUID->"41fddc14-9a81-4b40-bd9c-49cd67eab2c1"],
+Cell[34725, 889, 173, 3, 41, "Output",ExpressionUUID->"8e7150ad-62aa-4f85-a352-138a284b2f60"],
+Cell[34901, 894, 169, 3, 44, "Output",ExpressionUUID->"d03b1e5c-8139-4464-b9cd-b94e1805a17b"],
+Cell[35073, 899, 181, 4, 47, "Output",ExpressionUUID->"6b8edc8a-9526-473a-994f-3cde748124ae"]
+}, Open  ]],
+Cell[35269, 906, 287, 7, 41, "Text",ExpressionUUID->"f79c2aea-d355-4e2b-b294-8b5043ac566c"],
+Cell[CellGroupData[{
+Cell[35581, 917, 1422, 31, 75, "Input",ExpressionUUID->"5700235c-7429-434e-b964-a192adcc9913",
+ InitializationCell->True],
+Cell[37006, 950, 262, 7, 47, "Output",ExpressionUUID->"de160a5c-0402-4427-8cbd-b2094cdac569"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37305, 962, 7303, 179, 420, "Input",ExpressionUUID->"9c8b4754-816e-4f93-8534-37db7645a1e4"],
+Cell[44611, 1143, 14344, 280, 404, "Output",ExpressionUUID->"ea32e55f-5796-423d-b31b-3070d105aaad"]
+}, Open  ]],
+Cell[58970, 1426, 283, 6, 41, "Text",ExpressionUUID->"44af4251-e732-4516-9f6a-7f5c06a28dfe"],
+Cell[CellGroupData[{
+Cell[59278, 1436, 12334, 293, 745, "Input",ExpressionUUID->"9353460e-5cd6-4ca4-9e9b-05ad7acf0570"],
+Cell[71615, 1731, 488, 11, 26, "Message",ExpressionUUID->"1816d8b2-7525-45be-bc7b-2ff438f02eb4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[72140, 1747, 154, 3, 25, "Input",ExpressionUUID->"1feac86c-da52-4c5a-a0cb-d49fa4f0b623"],
+Cell[72297, 1752, 17633, 402, 561, "Output",ExpressionUUID->"52afbd39-41ee-4dba-a21e-e6e54c58d79a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89967, 2159, 5715, 151, 214, "Input",ExpressionUUID->"f35abed4-d58b-4b23-92a8-e177caf80a86"],
+Cell[95685, 2312, 3206, 79, 92, "Output",ExpressionUUID->"c9c7f44c-2110-48f8-a29e-09c081914a7f"],
+Cell[98894, 2393, 4333, 65, 82, "Message",ExpressionUUID->"032fcdc1-31dc-4680-9d9b-5eec157b7a3a"],
+Cell[103230, 2460, 4076, 94, 119, "Output",ExpressionUUID->"76080266-7f56-41e9-99ab-89816276b73c"]
+}, Open  ]]
+}
+]
+*)
+
